@@ -33,6 +33,23 @@ curl_close($ch);
       display: grid;
       place-content: center;
     }
+
+    section {
+      display: flex;
+      justify-content: center;
+      text-align: center;
+    }
+
+    hgroup {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      text-align: center;
+    {
+
+    img {
+      margin: 0 auto;
+    }
   </style>
 
 </head>
@@ -50,8 +67,8 @@ curl_close($ch);
     </section>
 
     <hgroup>
-      <h3> <?= $data["title"]; ?> se estrena en <?= $data["days_until"]; ?></h3>
-      <p>Fecha de estreno <?= $data["release_date"]; ?></p>
+      <h3><?= $data["title"]; ?> se estrena en <?= $data["days_until"]; ?> días</h3>
+      <p>Fecha de estreno: <?= $data["release_date"]; ?></p>
       <p>La siguiente es: <?= $data["following_production"]["title"]; ?></p>
     </hgroup>
   </main>
