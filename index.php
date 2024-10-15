@@ -40,9 +40,6 @@ curl_close($ch);
 
 <body>
   <main>
-    <pre style="font_size:8px; overflow: scrool; height: 250px;">
-      <?php var_dump($data); ?>
-    </pre>
     <section>
       <img
         src="<?= $data["poster_url"]; ?>"
