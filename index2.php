@@ -1,21 +1,33 @@
+<?php declare(strict_types=1); ?>
+
+
 <!DOCTYPE html>
 <html lang="es">
 
 
 <?php
+
 const API_URL = "https://whenisthenextmcufilm.com/api";
 
-$ch = curl_init(API_URL);
 
-curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 
-$result = curl_exec($ch);
+function get_data(string $url):array {
+  $result = file_get_contents($url);
+  $data = json_decode($result, true);
+  return $data;
+}
 
-// $result = file_get_contents(API_URL);
+function get_until_message (int $days): string {
+  return match(true) {
+    $days === 0 => "Hoy se estrena!!!",
+    $days === 1 => "Mañana se estrena",
+    $days < 7   => "Se estrena esta semana",
+    $days < 30  => "Se estrena este més",
+    default     => "$days días hasta el estreno",
+  };
+}
 
-$data = json_decode($result, true);
-
-curl_close($ch);
+$data = get_data(API_URL);
 
 ?>
 
@@ -69,7 +81,7 @@ curl_close($ch);
     </section>
 
     <hgroup>
-      <h3><?= $data["title"]; ?> se estrena en <?= $data["days_until"]; ?> días</h3>
+      <h3><?= $data["title"] . " - " ; ?> <?= get_until_message ($data["days_until"]); ?></h3>
       <p>Fecha de estreno: <?= $data["release_date"]; ?></p>
       <p>La siguiente es: <?= $data["following_production"]["title"]; ?></p>
     </hgroup>
